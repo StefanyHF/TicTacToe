@@ -88,9 +88,9 @@ public class Game {
                 }
                 board.printBoard();
                 checkWinner();
-                switchPlayer();
+                if(hasWinner == false) {switchPlayer();};
             }
-        System.out.println(currentPlayer.getName() + "voce ganhou.");
+        System.out.println(currentPlayer.getName() + " voce ganhou.");
         }
 
     public void switchPlayer() {
