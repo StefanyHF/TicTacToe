@@ -43,8 +43,8 @@ public class Game {
     }
 
     public void getUserInput() {
-        System.out.println(currentPlayer.getName() + " digite uma posicao (1-9).");
-        while (hasWinner == false) {
+        while (!hasWinner) {
+            System.out.println(currentPlayer.getName() + " digite uma posicao (1-9).");
             int i = scanner.nextInt();
                 switch (i) {
                     case 1:
@@ -88,87 +88,58 @@ public class Game {
                 }
                 board.printBoard();
                 switchPlayer();
+                checkWinner();
             }
-            checkWinner();
+        System.out.println(currentPlayer.getName() + "voce ganhou.");
         }
 
     public void switchPlayer() {
-        if (currentPlayer.getName().equals(player1.getName())) {
-            System.out.println(player2.getName() + " eh sua vez.");
-        } else {
-            System.out.println(player1.getName() + " eh sua vez.");
-        }
+        if (currentPlayer.getName().equals(player1.getName())){
+            currentPlayer.setName(player2.getName());
+        }else {
+            currentPlayer.setName(player1.getName());}
         if (currentPlayer.getMark() == 'X') {
             currentPlayer.setMark('O');
+        } else {
+            currentPlayer.setMark('X');
         }
+        System.out.println(currentPlayer.getName() + " eh sua vez.");
     }
     public void checkWinner(){
-        int possibilities = 16;
-        for(int i = 1; i < possibilities; i++ ){
+        for(int i = 0; i < 9; i++){
             switch (i){
                 case 1:
-                   hasWinner = (board.getMovement(0,0) == 'X') || (board.getMovement(0,2) == 'X') ||
-                            (board.getMovement(0,4) == 'X');
+                   hasWinner = (board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(0, 2)) &&
+                           (board.getMovement(0, 2) == board.getMovement(0, 4));
                    break;
                 case 2 :
-                    hasWinner = board.getMovement(2,0) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(2,4) == 'X';
+                    hasWinner = (board.getMovement(2, 0) != ' ') && (board.getMovement(2, 0) == board.getMovement(2, 2)) &&
+                            (board.getMovement(2, 2) == board.getMovement(2, 4));
                     break;
                 case 3:
-                    hasWinner = board.getMovement(4,0) == 'X' || board.getMovement(4,2) == 'X' ||
-                            board.getMovement(4,4) == 'X';
+                    hasWinner = (board.getMovement(4, 0) != ' ') && (board.getMovement(4, 0) == board.getMovement(4, 2)) &&
+                            (board.getMovement(4, 2) == board.getMovement(4, 4));
                     break;
                 case 4:
-                    hasWinner = board.getMovement(0,0) == 'X' || board.getMovement(2,0) == 'X' ||
-                            board.getMovement(4,0) == 'X';
+                    hasWinner = (board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(2, 0)) &&
+                            (board.getMovement(2, 0) == board.getMovement(4, 0));
                     break;
                 case 5:
-                    hasWinner = board.getMovement(0,2) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(4,2) == 'X';
+                    hasWinner = (board.getMovement(0, 2) != ' ') && (board.getMovement(0, 2) == board.getMovement(2, 2)) &&
+                            (board.getMovement(2, 2) == board.getMovement(4, 2));
                     break;
                 case 6 :
-                    hasWinner = board.getMovement(0,4) == 'X' || board.getMovement(2,4) == 'X' ||
-                            board.getMovement(4,4) == 'X';
+                    hasWinner = (board.getMovement(0, 4) != ' ') && (board.getMovement(0, 4) == board.getMovement(2, 4)) &&
+                            (board.getMovement(2, 4) == board.getMovement(4, 4));
                     break;
                 case 7:
-                    hasWinner = board.getMovement(0,0) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(4,4) == 'X';
+                    hasWinner = (board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(2, 2)) &&
+                            (board.getMovement(2, 2) == board.getMovement(4, 4));
                     break;
                 case 8:
-                    hasWinner = board.getMovement(0,4) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(4,0) == 'X';
+                    hasWinner = (board.getMovement(0, 4) != ' ') && (board.getMovement(0, 4) == board.getMovement(2, 2)) &&
+                            (board.getMovement(2, 2) == board.getMovement(4, 0));
                     break;
-                case 9:
-                    hasWinner = (board.getMovement(0,0) == 'X') || (board.getMovement(0,2) == 'X') ||
-                            (board.getMovement(0,4) == 'O');
-                    break;
-                case 10:
-                    hasWinner = board.getMovement(2,0) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(2,4) == 'O';
-                    break;
-                case 11:
-                    hasWinner = board.getMovement(4,0) == 'X' || board.getMovement(4,2) == 'X' ||
-                            board.getMovement(4,4) == 'O';
-                    break;
-                case 12:
-                    hasWinner = board.getMovement(0,0) == 'X' || board.getMovement(2,0) == 'X' ||
-                            board.getMovement(4,0) == 'O';
-                    break;
-                case 13:
-                    hasWinner = board.getMovement(0,2) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(4,2) == 'O';
-                    break;
-                case 14:
-                    hasWinner = board.getMovement(0,4) == 'X' || board.getMovement(2,4) == 'X' ||
-                            board.getMovement(4,4) == 'O';
-                    break;
-                case 15:
-                    hasWinner = board.getMovement(0,0) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(4,4) == 'O';
-                    break;
-                case 16:
-                    hasWinner = board.getMovement(0,4) == 'X' || board.getMovement(2,2) == 'X' ||
-                            board.getMovement(4,0) == 'O';
                 default:
                     hasWinner = false;
             }
