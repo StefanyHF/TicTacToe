@@ -11,12 +11,12 @@ public class Board {
     }
 
     public char getMovement(int x, int y){
-        return this.board[x][y];
+        return board[x][y];
     }
 
     public void printBoard() {
         for (int i = 0; i < getBoard().length; i++) {
-            for (int j = 0; j < getBoard().length; j++) {
+            for (int j = 0; j < board[i].length; j++) {
                 System.out.print(getMovement(i,j));
             }
             System.out.println();
@@ -24,7 +24,7 @@ public class Board {
     }
 
     public void setMark(int x, int y, char mark){
-        this.board[x][y] = mark;
+        board[x][y] = mark;
     }
 
     public void setBoard(char[][] board) {

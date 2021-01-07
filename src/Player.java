@@ -18,5 +18,4 @@ public class Player {
     public void setMark(char mark) {
         this.mark = mark;
     }
-
 }
