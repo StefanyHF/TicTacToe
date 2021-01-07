@@ -27,14 +27,8 @@ public class Game {
         switch (i) {
             case 0:
                 currentPlayer.setName(player1.getName());
-                player1.setMark('X');
-                player2.setMark('O');
-
             case 1:
                 currentPlayer.setName(player2.getName());
-                player2.setMark('X');
-                player1.setMark('O');
-
             default:
                 break;
         }
@@ -46,58 +40,71 @@ public class Game {
         while (!hasWinner) {
             System.out.println(currentPlayer.getName() + " digite uma posicao (1-9).");
             int i = scanner.nextInt();
-                switch (i) {
-                    case 1:
-                        board.setMark(0, 0, currentPlayer.getMark());
-                        usedPosition.add(1);
-                        break;
-                    case 2:
-                        board.setMark(0, 2, currentPlayer.getMark());
-                        usedPosition.add(2);
-                        break;
-                    case 3:
-                        board.setMark(0, 4, currentPlayer.getMark());
-                        usedPosition.add(3);
-                        break;
-                    case 4:
-                        board.setMark(2, 0, currentPlayer.getMark());
-                        usedPosition.add(4);
-                        break;
-                    case 5:
-                        board.setMark(2, 2, currentPlayer.getMark());
-                        usedPosition.add(5);
-                        break;
-                    case 6:
-                        board.setMark(2, 4, currentPlayer.getMark());
-                        usedPosition.add(6);
-                        break;
-                    case 7:
-                        board.setMark(4, 0, currentPlayer.getMark());
-                        usedPosition.add(7);
-                        break;
-                    case 8:
-                        board.setMark(4, 2, currentPlayer.getMark());
-                        usedPosition.add(8);
-                        break;
-                    case 9:
-                        board.setMark(4, 4, currentPlayer.getMark());
-                        usedPosition.add(9);
-                        break;
-                    default:
-                        System.out.println("Posicao invalida. Escolha outra");
-                }
-                board.printBoard();
-                checkWinner();
-                if(hasWinner == false) {switchPlayer();};
+
+            while (usedPosition.contains(i)) {
+                System.out.println("Posicao ja escolhida. Tente outra.");
+                i = scanner.nextInt();
             }
-        System.out.println(currentPlayer.getName() + " voce ganhou.");
+
+            switch (i) {
+                case 1:
+                    board.setMark(0, 0, currentPlayer.getMark());
+                    usedPosition.add(1);
+                    break;
+                case 2:
+                    board.setMark(0, 2, currentPlayer.getMark());
+                    usedPosition.add(2);
+                    break;
+                case 3:
+                    board.setMark(0, 4, currentPlayer.getMark());
+                    usedPosition.add(3);
+                    break;
+                case 4:
+                    board.setMark(2, 0, currentPlayer.getMark());
+                    usedPosition.add(4);
+                    break;
+                case 5:
+                    board.setMark(2, 2, currentPlayer.getMark());
+                    usedPosition.add(5);
+                    break;
+                case 6:
+                    board.setMark(2, 4, currentPlayer.getMark());
+                    usedPosition.add(6);
+                    break;
+                case 7:
+                    board.setMark(4, 0, currentPlayer.getMark());
+                    usedPosition.add(7);
+                    break;
+                case 8:
+                    board.setMark(4, 2, currentPlayer.getMark());
+                    usedPosition.add(8);
+                    break;
+                case 9:
+                    board.setMark(4, 4, currentPlayer.getMark());
+                    usedPosition.add(9);
+                    break;
+                default:
+                    System.out.println("Posicao invalida. Escolha outra");
+            }
+            board.printBoard();
+            checkWinner();
+
+            if (usedPosition.size() == 9) {
+                System.out.println("Empate.");
+            } else if (hasWinner) {
+                System.out.println(currentPlayer.getName() + " voce ganhou.");
+            } else {
+                switchPlayer();
+            }
         }
+    }
 
     public void switchPlayer() {
-        if (currentPlayer.getName().equals(player1.getName())){
+        if (currentPlayer.getName().equals(player1.getName())) {
             currentPlayer.setName(player2.getName());
-        }else {
-            currentPlayer.setName(player1.getName());}
+        } else {
+            currentPlayer.setName(player1.getName());
+        }
         if (currentPlayer.getMark() == 'X') {
             currentPlayer.setMark('O');
         } else {
@@ -105,33 +112,35 @@ public class Game {
         }
         System.out.println(currentPlayer.getName() + " eh sua vez.");
     }
-    public void checkWinner(){
-        if((board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(0, 2)) &&
-                           (board.getMovement(0, 2) == board.getMovement(0, 4))) {
+
+    public void checkWinner() {
+        if ((board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(0, 2)) &&
+                (board.getMovement(0, 2) == board.getMovement(0, 4))) {
             hasWinner = true;
-        }else if ((board.getMovement(2, 0) != ' ') && (board.getMovement(2, 0) == board.getMovement(2, 2)) &&
+        } else if ((board.getMovement(2, 0) != ' ') && (board.getMovement(2, 0) == board.getMovement(2, 2)) &&
                 (board.getMovement(2, 2) == board.getMovement(2, 4))) {
             hasWinner = true;
-        }else if((board.getMovement(4, 0) != ' ') && (board.getMovement(4, 0) == board.getMovement(4, 2)) &&
-                (board.getMovement(4, 2) == board.getMovement(4, 4))){
+        } else if ((board.getMovement(4, 0) != ' ') && (board.getMovement(4, 0) == board.getMovement(4, 2)) &&
+                (board.getMovement(4, 2) == board.getMovement(4, 4))) {
             hasWinner = true;
-        }else if((board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(2, 0)) &&
+        } else if ((board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(2, 0)) &&
                 (board.getMovement(2, 0) == board.getMovement(4, 0))) {
             hasWinner = true;
-        }else if((board.getMovement(0, 2) != ' ') && (board.getMovement(0, 2) == board.getMovement(2, 2)) &&
+        } else if ((board.getMovement(0, 2) != ' ') && (board.getMovement(0, 2) == board.getMovement(2, 2)) &&
                 (board.getMovement(2, 2) == board.getMovement(4, 2))) {
             hasWinner = true;
-        }else if((board.getMovement(0, 4) != ' ') && (board.getMovement(0, 4) == board.getMovement(2, 4)) &&
+        } else if ((board.getMovement(0, 4) != ' ') && (board.getMovement(0, 4) == board.getMovement(2, 4)) &&
                 (board.getMovement(2, 4) == board.getMovement(4, 4))) {
             hasWinner = true;
-        }else if((board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(2, 2)) &&
+        } else if ((board.getMovement(0, 0) != ' ') && (board.getMovement(0, 0) == board.getMovement(2, 2)) &&
                 (board.getMovement(2, 2) == board.getMovement(4, 4))) {
             hasWinner = true;
-        }else if((board.getMovement(0, 4) != ' ') && (board.getMovement(0, 4) == board.getMovement(2, 2)) &&
+        } else if ((board.getMovement(0, 4) != ' ') && (board.getMovement(0, 4) == board.getMovement(2, 2)) &&
                 (board.getMovement(2, 2) == board.getMovement(4, 0))) {
             hasWinner = true;
         }
-            }
-        }
+    }
+}
+
 
 

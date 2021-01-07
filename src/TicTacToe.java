@@ -3,10 +3,5 @@ public class TicTacToe {
         Game game = new Game();
         game.start();
         game.getUserInput();
-
-
-
-
     }
-
 }
